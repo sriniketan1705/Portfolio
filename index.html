@@ -36,12 +36,99 @@
     background: rgba(251,250,247,0.85); backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
-  .nav-inner{ max-width:880px; margin:0 auto; padding:20px 32px; display:flex; align-items:center; justify-content:space-between; }
-  .nav-name{ font-family: var(--font-display); font-weight:600; font-size:16px; }
-  .nav-links{ display:flex; gap:34px; }
-  .nav-links a{ font-size:13.5px; color: var(--ink-soft); transition: color 0.2s; }
+  .nav-inner{
+    max-width:880px; margin:0 auto; padding:20px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-name{
+    font-family: var(--font-display); font-weight:600; font-size:16px;
+    white-space:nowrap;
+  }
+  .nav-links{
+    display:flex; gap:34px; align-items:center;
+  }
+  .nav-links a{
+    font-size:13.5px; color: var(--ink-soft); transition: color 0.2s;
+    white-space:nowrap;
+  }
   .nav-links a:hover{ color: var(--accent); }
-  @media (max-width:640px){ .nav-links{ display:none; } }
+
+  /* ---------- MOBILE HAMBURGER MENU ---------- */
+  .nav-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .menu-toggle{
+    display:none;
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:transparent;
+    cursor:pointer;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:5px;
+  }
+
+  .menu-toggle span{
+    display:block;
+    width:19px;
+    height:2px;
+    background:var(--ink);
+    border-radius:2px;
+    transition:transform .25s ease, opacity .25s ease;
+  }
+
+  .menu-toggle.active span:nth-child(1){
+    transform:translateY(7px) rotate(45deg);
+  }
+
+  .menu-toggle.active span:nth-child(2){ opacity:0; }
+
+  .menu-toggle.active span:nth-child(3){
+    transform:translateY(-7px) rotate(-45deg);
+  }
+
+  @media (max-width:640px){
+    header{ background:rgba(251,250,247,0.98); }
+
+    .nav-inner{
+      padding:0;
+      display:block;
+    }
+
+    .nav-top{ padding:18px 24px; }
+
+    .nav-name{ font-size:17px; }
+
+    .menu-toggle{ display:flex; }
+
+    .nav-links{
+      display:none;
+      flex-direction:column;
+      gap:0;
+      padding:8px 24px 18px;
+      border-top:1px solid var(--line);
+      background:var(--bg);
+    }
+
+    .nav-links.open{ display:flex; }
+
+    .nav-links a{
+      display:block;
+      padding:14px 0;
+      font-size:14px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav-links a:last-child{ border-bottom:0; }
+
+    .hero{ padding-top:150px; }
+  }
 
   /* ---------- HERO ---------- */
   .hero{ padding: 190px 0 120px; }
@@ -131,8 +218,13 @@
 
 <header>
   <div class="nav-inner">
-    <div class="nav-name">Sri Niketan U K</div>
-    <nav class="nav-links">
+    <div class="nav-top">
+      <div class="nav-name">Sri Niketan U K</div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="nav-links" id="mobile-menu">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#work">Experience</a>
@@ -297,6 +389,26 @@
     });
   }, { rootMargin: '-35% 0px -55% 0px' });
   sections.forEach(section => navObserver.observe(section));
+</script>
+
+
+<script>
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+  const isOpen = navLinks.classList.toggle('open');
+  menuToggle.classList.toggle('active', isOpen);
+  menuToggle.setAttribute('aria-expanded', String(isOpen));
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    menuToggle.classList.remove('active');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
+});
 </script>
 
 </body>
