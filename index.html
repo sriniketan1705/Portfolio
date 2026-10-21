@@ -367,74 +367,91 @@
   .resume-bullets strong{color:var(--text);font-weight:600}
 
   /* ---------- PROJECTS ---------- */
-  .project-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
+  
+/* ---------- PROJECTS: COMPACT RESUME STYLE ---------- */
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.project-item {
+  width: 100%;
+}
+
+.project-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.project-header h3 {
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.project-link {
+  flex-shrink: 0;
+  color: var(--accent-soft);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.project-link:hover {
+  text-decoration: underline;
+}
+
+.project-tech {
+  margin: 3px 0 5px;
+  color: var(--text-soft);
+  font-size: 15px;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.project-tech strong {
+  color: var(--accent-soft);
+  font-weight: 600;
+}
+
+.project-item .resume-bullets li {
+  margin-top: 3px;
+  padding-left: 21px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.project-item .resume-bullets li::before {
+  width: 5px;
+  height: 5px;
+  border-radius: 0;
+  background: var(--accent);
+  top: .72em;
+}
+
+@media (max-width: 520px) {
+  .project-header {
+    align-items: flex-start;
   }
 
-  .project-card{
-    position:relative;
-    border:1px solid var(--line);
-    background:
-      linear-gradient(145deg,rgba(113,145,184,.055),transparent 45%),
-      var(--surface);
-    padding:30px;
-    overflow:hidden;
-    transition:.35s ease;
+  .project-header h3 {
+    font-size: 16px;
   }
 
-  .project-card::before{
-    content:"";
-    position:absolute;
-    top:0;left:0;
-    width:100%;
-    height:2px;
-    background:linear-gradient(90deg,var(--accent),transparent 65%);
-    transform:scaleX(.3);
-    transform-origin:left;
-    transition:.35s ease;
+  .project-tech {
+    font-size: 13px;
   }
 
-  .project-card:hover{
-    transform:translateY(-5px);
-    border-color:var(--line-strong);
-    box-shadow:0 24px 60px rgba(0,0,0,.22);
+  .project-item .resume-bullets li {
+    font-size: 13px;
   }
-
-  .project-card:hover::before{transform:scaleX(1)}
-
-  .project-number{
-    font-family:var(--mono);
-    font-size:10px;
-    color:var(--accent);
-    letter-spacing:.12em;
-    margin-bottom:17px;
-  }
-
-  .project-card h3{
-    font-family:var(--display);
-    font-size:25px;
-    line-height:1.15;
-    font-weight:600;
-    margin-bottom:22px;
-  }
-
-  .project-tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    margin-top:25px;
-  }
-
-  .project-tags span{
-    border:1px solid var(--line);
-    color:var(--muted);
-    font-family:var(--mono);
-    font-size:9px;
-    padding:5px 9px;
-    border-radius:2px;
-  }
+}
 
   /* ---------- CERTIFICATIONS ---------- */
   .cert-list{border-top:1px solid var(--line)}
